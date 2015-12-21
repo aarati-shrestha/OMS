@@ -1,0 +1,30 @@
+﻿@using OfficeManagement.Models
+@{
+    ViewBag.Title = "Leave List";
+    //int roleId = (int)Session["RoleId"];
+}
+
+<table id="tblLeaveList" class="table table-striped">
+    <thead>
+        <tr>          
+            <th>Created Date</th>
+            <th>Subject</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody id="userList">
+        @foreach (var data in Model)
+        {
+            <tr>  
+                <td>@data.CreatedDate</td>              
+                <td>@data.Name</td>
+                <td>@data.Description</td>              
+            </tr>
+        }
+
+
+    </tbody>
+</table>
+<hr/>
+<input type="button" value="download pdf" onclick="DownloadPdf()" />
+<script src="~/Scripts/user.js"></script>

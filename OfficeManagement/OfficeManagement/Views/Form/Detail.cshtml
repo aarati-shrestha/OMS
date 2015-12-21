@@ -1,0 +1,255 @@
+﻿@model OfficeManagement.Models.FormAndFormStatusModel
+
+
+@{
+    ViewBag.Title = "Detail";
+    List<SelectListItem> userNameList = ViewBag.UserNameList;
+
+    List<int> distinctAssignedUserNameList = ViewBag.DistinctAssignedUserNameList;
+    int userId = (int)Session["UserId"];
+    string userName = Session["Name"].ToString();
+}
+<script src="~/Scripts/autocomplete.js"></script>
+
+<script src="~/Scripts/form.js" type="text/javascript"></script>
+<link href="~/Content/assets/commentbox.css" rel="stylesheet" />
+<div style="margin-left:350px;margin-right:310px;" class=" panel panel-default">
+
+    <div class="panel-body">
+
+        
+        <h2 class=" modal-title" id="myModalLabel">Details</h2>
+        <hr />
+        @using (Html.BeginForm("Detail", "Form", FormMethod.Post, new { @class = "form-horizontal", id = "formDetail" }))
+        {
+
+            <div>
+                @Html.HiddenFor(model => model.Form.FormId)
+                @Html.HiddenFor(model => model.Form.FormTypeId)
+                @Html.HiddenFor(model => model.Form.CreatedDate)
+            </div>
+            <div class="form-group">
+                @Html.Label("Send Date:", new { @class = "col-sm-3 control-label" })
+                <div class="col-sm-7">
+                    @Html.TextBoxFor(model => model.Form.CreatedDate, new { @class = "form-control", @readonly = "readonly" })
+                </div>
+            </div>
+            if (Model.Form.ModifiedDate != null)
+            {
+                <div class="form-group">
+                    @Html.Label("Modified Date:", new { @class = "col-sm-3 control-label" })
+                    <div class="col-sm-7">
+                        @Html.TextBoxFor(model => model.Form.ModifiedDate, new { @class = "form-control", @readonly = "readonly" })
+                    </div>
+                </div>
+            }
+
+            if (Model.Form.MeetingDate != null)
+            {
+                <div class="form-group">
+                    @Html.Label("Meeting Date:", new { @class = "col-sm-3 control-label" })
+                    <div class="col-sm-7">
+                        @if (Model.Form.CreatedUserId != (int)Session["UserId"])
+                        {
+                        @Html.TextBoxFor(model => model.Form.MeetingDate, new { @class = "form-control", @readonly = "readonly" })
+                        }
+                        else
+                        {
+                        @Html.TextBoxFor(model => model.Form.MeetingDate, new { @class = "form-control" })
+                        }
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.Label("To:", new { @class = "col-sm-3 control-label" })
+                    <div class="col-sm-7">
+                        @if (Model.Form.CreatedUserId != (int)Session["UserId"])
+                        {
+                        @Html.ListBoxFor(model => model.Form.AssignedUserList, userNameList, new { @id = "userAutoComplete", @selected = "selected", @disabled = "true" })
+
+                        }
+                        else
+                        {
+                        @Html.ListBoxFor(model => model.Form.AssignedUserList, userNameList, new { @id = "userAutoComplete", @selected = "selected" })
+
+                        }
+                    </div>
+                </div>
+            }
+            if (Model.Form.FormTypeId == 1)
+            {
+                <div class="form-group">
+                    @Html.Label("To:", new { @class = "col-sm-3 control-label" })
+                    <div class="col-sm-7">
+                        @Html.ListBoxFor(model => model.Form.AssignedUserList, userNameList, new { @id = "userAutoComplete", @selected = "selected", @disabled = "true" })
+                    </div>
+                </div>
+            }
+
+            <div class="form-group">
+                @Html.Label("Send By:", new { @class = "col-sm-3 control-label" })
+                <div class="col-sm-7">
+                    @Html.TextBoxFor(model => model.Form.CreatedNameOfUser, new { @class = "form-control", @readonly = "readonly" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("Subject:", new { @class = "col-sm-3 control-label" })
+                <div class="col-sm-7">
+                    @Html.TextBoxFor(model => model.Form.Name, new { @class = "form-control", @readonly = "readonly" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("Description:", new { @class = "col-sm-3 control-label" })
+                <div class="col-sm-7">
+                    @Html.TextAreaFor(model => model.Form.Description, new { @class = "form-control", @readonly = "readonly" })
+                </div>
+            </div>
+            <div class="form-group" style="margin-left: 45px;">
+                <div class="col-sm-offset-2 col-sm-10">
+                    @if ((Model.Form.CreatedUserId != (int)Session["UserId"]))
+                    {
+                        <input type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" value="Action" />
+                    }
+                    else
+                    {
+                        if (Model.Form.FormTypeId == 1)
+                        {
+                            <input type="button" class="btn btn-primary btn-lg" onclick="UpdateForm()" value="Save" style="display:none" />
+                        }
+                        else
+                        {
+                            <input type="button" class="btn btn-primary btn-lg" onclick="UpdateForm()" value="Save" />
+                            <input type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" value="Action" />
+
+
+                        }
+                    }
+                </div>
+            </div>
+
+        }
+    </div>
+</div>
+
+
+<div class="panel panel-default" style="margin:0 310px 0 350px;">
+    <div class="panel-body">
+
+        <h4 class=" modal-title" id="myModalLabel">Form Statuses</h4>
+        <hr />
+
+        <div class="panel panel-default" id="lastComment" style="display:none">
+            <div class="panel-heading">Commented By <b>@userName</b></div>
+            <div class="panel-body">
+                <table>
+                    <tr>
+                        <td><b>Date:</b></td>
+                        <td>@DateTime.Now.ToString("MMM dd yyyy")</td>
+                    </tr>
+                    <tr>
+                        <td><b>Comment:</b></td>
+                        <td><label id="comment" style="font-weight: normal !important;"></label></td>
+                    </tr>
+                    <tr>
+                        <td><b>Attending Meeting:</b></td>
+                        <td><label id="isApproved" style="font-weight: normal !important;"></label></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+
+
+        @foreach (var item in Model.FormStatus)
+        {
+            <div class="panel panel-default">
+                <div class="panel-heading">Comment By <b>@item.userName</b></div>
+                <div class="panel-body">
+                    <table>
+                        <tr>
+                            <td><b>Date:</b></td>
+                            <td>@item.CreatedDate.ToString("MMM dd yyyy")</td>
+                        </tr>
+                        <tr>
+                            <td><b>Comment:</b></td>
+                            <td>@item.Description</td>
+                        </tr>
+                        <tr>
+                            <td><b>Attending Meeting:</b></td>
+                            @if (item.IsApproved == true)
+                            {
+                                <td>Yes</td>
+                            }
+                            else
+                            {
+                                <td>No</td>
+                            }
+
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        }
+
+
+
+
+    </div>
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            </div>
+            <div class="modal-body">
+
+                @using (Html.BeginForm("Detail", "Form", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    <textarea placeholder="Comment" id="commentField" class="form-control" aria-describedby="basic-addon1"></textarea>
+                    <div class="modal-footer">
+                        <input type="hidden" id="formId" value="@Html.DisplayTextFor(model => model.Form.FormId)" />
+                        @if (Model.Form.MeetingDate == null)
+                        {
+                            <button type="button" id="attending" class="btn btn-primary" data-dismiss="modal" onclick="InsertFormStatus(1)">Approve</button>
+                            <button type="button" id="notAttending" class="btn btn-primary" data-dismiss="modal" onclick="InsertFormStatus(0)">Disapproved</button>
+                        }
+                        else
+                        {
+                            <button type="button" id="attending" class="btn btn-primary" data-dismiss="modal" onclick="InsertFormStatus(1)">Attending</button>
+                            <button type="button" id="notAttending" class="btn btn-primary" data-dismiss="modal" onclick="InsertFormStatus(0)">Not Attending</button>
+
+                        }
+                    </div>
+                }
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $('#datetimepicker').datepicker();
+
+
+    var eventHandler = function (name) {
+        return function () {
+            console.log(name, arguments);
+        };
+    };
+    var $select = $('#userAutoComplete').selectize({
+        create: false,
+        onChange: eventHandler('onChange'),
+        onItemAdd: eventHandler('onItemAdd'),
+        onItemRemove: eventHandler('onItemRemove'),
+        onOptionAdd: eventHandler('onOptionAdd'),
+        onOptionRemove: eventHandler('onOptionRemove'),
+        onDropdownOpen: eventHandler('onDropdownOpen'),
+        onDropdownClose: eventHandler('onDropdownClose'),
+        onFocus: eventHandler('onFocus'),
+        onBlur: eventHandler('onBlur'),
+        onInitialize: eventHandler('onInitialize'),
+    });
+
+</script>

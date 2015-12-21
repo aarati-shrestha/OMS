@@ -1,0 +1,78 @@
+﻿@model OfficeManagement.Models.EventModel
+@{
+    ViewBag.Title = "CreateEvent";
+    List<SelectListItem> emailList = ViewBag.EmailList;
+}
+<link href="~/Content/assets/jquery-te-1.4.0.css" rel="stylesheet" />
+<link href="~/Content/assets/common.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-te-1.4.0.min.js"></script>
+<script src="~/Scripts/event.js"></script>
+@using (Html.BeginForm("CreateEvent", "Event", FormMethod.Post, new { @class = "form-horizontal", style = "margin:20px auto 0 auto;", enctype = "multipart/form-data",id="event" }))
+{
+    <div class="form-group">
+        @Html.Label("to", "To:", new { @class = "col-sm-3 control-label" })
+        <div class="col-sm-7">
+            @Html.ListBoxFor(model => model.AssginedUserlist, emailList, new { @class = "form-control", @id = "userAutoComplete" })
+            @Html.ValidationMessageFor(model => model.AssginedUserlist, null, new { @class = "errorValidation" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.Label("subject", "Subject:", new { @class = "col-sm-3 control-label" })
+        <div class="col-sm-7">
+            @Html.TextBoxFor(model => model.Subject, new { @class = "form-control " })
+            @Html.ValidationMessageFor(model => model.Subject, null, new { @class = "errorValidation" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.Label("message", "Message:", new { @class = "col-sm-3 control-label" })
+        <div class="col-sm-7  ">
+            @Html.TextAreaFor(model => model.Body, new { @class = "jqte-test form-control ", @placeholder = "Description" })
+            @Html.ValidationMessageFor(model => model.Body, null, new { @class = "errorValidation" })
+        </div>
+    </div>
+    <div class="form-group" style="margin-left: 117px;">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" onclick="SaveEvent()" class="btn btn-default">Save</button>
+            <button type="button" class="btn btn-default">Send</button>
+        </div>
+    </div>
+
+}
+
+<script type="text/javascript">
+
+    $(function () {
+        $('#datetimepicker1').datetimepicker();
+    });
+
+
+
+    var eventHandler = function (name) {
+        return function () {
+            console.log(name, arguments);
+        };
+    };
+    var $select = $('#userAutoComplete').selectize({
+        create: false,
+        onChange: eventHandler('onChange'),
+        onItemAdd: eventHandler('onItemAdd'),
+        onItemRemove: eventHandler('onItemRemove'),
+        onOptionAdd: eventHandler('onOptionAdd'),
+        onOptionRemove: eventHandler('onOptionRemove'),
+        onDropdownOpen: eventHandler('onDropdownOpen'),
+        onDropdownClose: eventHandler('onDropdownClose'),
+        onFocus: eventHandler('onFocus'),
+        onBlur: eventHandler('onBlur'),
+        onInitialize: eventHandler('onInitialize'),
+    });
+
+    $('.jqte-test').jqte();
+
+    // settings of status
+    var jqteStatus = true;
+    $(".status").click(function () {
+        jqteStatus = jqteStatus ? false : true;
+        $('.jqte-test').jqte({ "status": jqteStatus })
+    });
+
+</script>

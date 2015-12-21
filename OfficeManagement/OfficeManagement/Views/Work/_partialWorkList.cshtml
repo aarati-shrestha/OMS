@@ -1,0 +1,81 @@
+﻿@using OfficeManagement.Models
+@{
+    ViewBag.Title = "Work List";
+    int currentPage = ViewBag.CurrentPage;
+    int totalPage = ViewBag.TotalPage;
+    if(totalPage==0)
+    {
+        currentPage = 0;
+    }
+    int totalRecord = ViewBag.TotalRecord;
+    string role = Session["RoleType"].ToString().ToLower();
+}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th style="display:none;">Work ID</th>
+            @if (role == "admin")
+            {
+                <th><input id="chkAction" type="checkbox" onclick="CheckAll()" /></th>
+            }
+            <th>Title</th>
+            <th>Description</th>
+            <th>Deadline</th>
+            <th>Priority</th>
+            <th>Created Date</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody id="workList">
+        @foreach (var data in Model)
+        {
+            <tr>
+                <td style="display:none;">@data.WorkId</td>
+                @if (role == "admin")
+                {
+                    <td><input type="checkbox" onclick="GetCheckedItemsWorkId()" /></td>
+                }
+                <td>@data.Title</td>
+                <td>@data.Description</td>
+                <td>@data.Deadline</td>
+                <td>@data.Priority</td>
+                <td>@data.CreatedDate</td>
+                <td><a href="~/Work/Detail/@data.WorkId">View>></a></td>
+            </tr>
+        }
+
+
+    </tbody>
+</table>
+<hr />
+
+<nav>
+    <ul class="pager">
+        @if (currentPage == 1 || totalPage == 1 || totalPage == 0)
+        {
+            <li class=" disabled"><a href="#">Previous</a></li>
+        }
+        else
+        {
+            <li><a href="#" onclick="getWork(@(currentPage-1))"> Previous</a></li>
+        }
+        <li class=" disabled">@currentPage/@totalPage
+       </li>
+        @if (currentPage < totalPage)
+        {
+            <li><a href="#" onclick="getWork(@(currentPage+1))">Next</a></li>
+        }
+        else
+        {
+            <li class=" disabled"><a href="#">Next</a></li>
+        }
+
+    </ul>
+</nav>
+
+<input type="hidden" id="currentPage" value="@ViewBag.CurrentPage" />
+@*<input type="text" id="txtPage" value="1" />*@
+<input type="hidden" id="totalPage" value="@ViewBag.TotalPage" />
+
+

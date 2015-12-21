@@ -1,0 +1,78 @@
+﻿@{
+  
+    var menuList = OfficeManagement.Common.GetParentMenuList();
+    //var childMenuList = OfficeManagement.Common.GetChildMenuList();
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="~/Content/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap/css/bootstrap-theme.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="~/Content/selectize/css/selectize.css" rel="stylesheet" />
+    <link href="~/Content/selectize/css/selectize.bootstrap3.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.11.3.min.js"></script>
+    <script src="~/Content/bootstrap/js/bootstrap.js"></script>
+    <script src="~/Content/bootstrap/js/collapse.js"></script>
+    <script src="~/Content/bootstrap/js/bootstrap-datepicker.js"></script>
+    <script src="~/Content/selectize/js/selectize.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/collapse.js" type="text/javascript"></script>
+    <link href="~/Content/assets/dashboard.css" rel="stylesheet">
+    <link href="~/Content/assets/Form.css" rel="stylesheet" />
+    <link href="~/Content/assets/Signin.css" rel="stylesheet" />
+    <style type="text/css">
+        .bs-example {
+            margin: 20px;
+            font-size: 22px;
+        }
+    </style>
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="bs-example">
+        <ul class="nav nav-tabs">
+            @foreach (var item in menuList)
+            {
+                <li>
+
+                    @{
+                var childMenuList = OfficeManagement.Common.GetChildMenuList(item.MenuId);
+                    }
+                    @if (childMenuList.Count > 0)
+                    {
+                        <a href="@item.Link" data-toggle="dropdown" class="dropdown-toggle">@item.Name<b class="caret"></b></a>
+                        <ul class="dropdown-menu" >
+                            @foreach (var childItem in childMenuList)
+                            {
+                                <li>
+                                    <a href="@childItem.Link">@childItem.Name</a>
+                                </li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <a href="@item.Link">@item.Name</a>
+                    }
+                </li>
+            }
+            <li style="float:right">@Html.ActionLink("Logout","Logout","Login")</li>
+
+           
+        </ul>
+    </div>
+    @RenderBody()
+
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

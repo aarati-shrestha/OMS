@@ -1,0 +1,68 @@
+﻿
+
+@{
+    ViewBag.Title = "Index";
+    int roleId = (int)Session["RoleId"];
+   // List<FormModel> allForms = ViewBag.AllForms;
+}
+<script src="~/Scripts/form.js"></script>
+@if (roleId == 3)
+{
+    <div class="panel panel-default" style="margin-left:100px;margin-right:100px;">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                    Manage Forms
+                </a>
+            </h4>
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse in">
+            <div class="panel-body">
+                <div style="margin-left:70px;margin-right:70px;">
+
+                    
+                    <div class="row" style="margin-left:350px;">
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="txtSearch" placeholder="Enter Title...">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" onclick="GetForm()">Search</button>
+                                </span>
+
+                            </div><!-- /input-group -->
+                        </div><!-- /.col-lg-6 -->
+                    </div>
+                    <hr />
+
+                    <button type="button" id="btnDelete" onclick="DeleteForm()" class="btn btn-danger">
+                      Delete
+                    </button>
+                    <hr />
+                    <div id="formListDiv">
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script>
+    GetForm();
+
+    function GetForm() {
+        $.ajax({
+            type: "POST",
+            url: '/Form/GetFormByName',
+            data: { searchString: $('#txtSearch').val() },
+            success: function (data) {
+                console.log(data);
+                $("#formListDiv").html(data);
+            },
+            error: function () {
+                alert("Failed! Please try again.");
+            }
+        });
+    }
+</script>

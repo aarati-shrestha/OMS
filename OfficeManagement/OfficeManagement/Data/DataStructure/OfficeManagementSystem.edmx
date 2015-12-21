@@ -1,0 +1,1273 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="OfficeManagementSystemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityType Name="Events">
+          <Key>
+            <PropertyRef Name="EventId" />
+          </Key>
+          <Property Name="EventId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Subject" Type="varchar" MaxLength="200" />
+          <Property Name="Body" Type="text" />
+          <Property Name="EventToId" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="DeletedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="EventTo">
+          <Key>
+            <PropertyRef Name="EventToId" />
+          </Key>
+          <Property Name="EventToId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EventId" Type="int" />
+          <Property Name="UserId" Type="int" />
+        </EntityType>
+        <EntityType Name="Forms">
+          <Key>
+            <PropertyRef Name="FormId" />
+          </Key>
+          <Property Name="FormId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="FormTypeId" Type="int" Nullable="false" />
+          <Property Name="Description" Type="text" />
+          <Property Name="CreatedUserId" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="DeletedDate" Type="datetime" />
+          <Property Name="MeetingDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="FormsAssignedUsers">
+          <Key>
+            <PropertyRef Name="FormsAssignedUsersId" />
+          </Key>
+          <Property Name="FormsAssignedUsersId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FormId" Type="int" Nullable="false" />
+          <Property Name="AssignedUserId" Type="int" Nullable="false" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="DeletedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="FormStatuses">
+          <Key>
+            <PropertyRef Name="FormStatusId" />
+          </Key>
+          <Property Name="FormStatusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FormId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="Description" Type="text" />
+          <Property Name="IsApproved" Type="bit" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="DeletedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="FormTypes">
+          <Key>
+            <PropertyRef Name="FormTypeId" />
+          </Key>
+          <Property Name="FormTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Type" Type="varchar" MaxLength="100" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="DeletedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Menus">
+          <Key>
+            <PropertyRef Name="MenuId" />
+          </Key>
+          <Property Name="MenuId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ParentId" Type="int" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Link" Type="varchar" MaxLength="50" />
+          <Property Name="DeletedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Permissions">
+          <Key>
+            <PropertyRef Name="PermissionId" />
+          </Key>
+          <Property Name="PermissionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" />
+          <Property Name="MenuId" Type="int" Nullable="false" />
+          <Property Name="DeletedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Priorities">
+          <Key>
+            <PropertyRef Name="PriorityId" />
+          </Key>
+          <Property Name="PriorityId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Priority" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Type" Type="varchar" MaxLength="100" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="DeletedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="100" />
+          <Property Name="Username" Type="varchar" MaxLength="50" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+          <Property Name="Gender" Type="varchar" MaxLength="10" />
+          <Property Name="Photo" Type="varchar" MaxLength="255" />
+          <Property Name="DOB" Type="date" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="DeletedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="UsersRoles">
+          <Key>
+            <PropertyRef Name="UserRoleId" />
+          </Key>
+          <Property Name="UserRoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="DeletedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Works">
+          <Key>
+            <PropertyRef Name="WorkId" />
+          </Key>
+          <Property Name="WorkId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="50" />
+          <Property Name="Description" Type="text" />
+          <Property Name="Deadline" Type="datetime" />
+          <Property Name="CreatedUserId" Type="int" Nullable="false" />
+          <Property Name="PriorityId" Type="int" Nullable="false" />
+          <Property Name="WorkStatusId" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="DeletedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="WorkStatuses">
+          <Key>
+            <PropertyRef Name="WorkStatusId" />
+          </Key>
+          <Property Name="WorkStatusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Status" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="WorksUsersStatus">
+          <Key>
+            <PropertyRef Name="WorkUserStatusId" />
+          </Key>
+          <Property Name="WorkUserStatusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="WorkId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="WorkStatusId" Type="int" />
+          <Property Name="AssignedUserId" Type="int" />
+          <Property Name="Remarks" Type="text" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="DeletedDate" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_EventTo_Events">
+          <End Role="Events" Type="Self.Events" Multiplicity="0..1" />
+          <End Role="EventTo" Type="Self.EventTo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Events">
+              <PropertyRef Name="EventId" />
+            </Principal>
+            <Dependent Role="EventTo">
+              <PropertyRef Name="EventId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EventTo_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="EventTo" Type="Self.EventTo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="EventTo">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Forms_FormTypes">
+          <End Role="FormTypes" Type="Self.FormTypes" Multiplicity="1" />
+          <End Role="Forms" Type="Self.Forms" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FormTypes">
+              <PropertyRef Name="FormTypeId" />
+            </Principal>
+            <Dependent Role="Forms">
+              <PropertyRef Name="FormTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FormsAssignedUsers_Forms">
+          <End Role="Forms" Type="Self.Forms" Multiplicity="1" />
+          <End Role="FormsAssignedUsers" Type="Self.FormsAssignedUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Forms">
+              <PropertyRef Name="FormId" />
+            </Principal>
+            <Dependent Role="FormsAssignedUsers">
+              <PropertyRef Name="FormId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FormStatuses_Forms">
+          <End Role="Forms" Type="Self.Forms" Multiplicity="1" />
+          <End Role="FormStatuses" Type="Self.FormStatuses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Forms">
+              <PropertyRef Name="FormId" />
+            </Principal>
+            <Dependent Role="FormStatuses">
+              <PropertyRef Name="FormId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FormStatuses_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="FormStatuses" Type="Self.FormStatuses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="FormStatuses">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FormTypes_FormTypes">
+          <End Role="FormTypes" Type="Self.FormTypes" Multiplicity="1" />
+          <End Role="FormTypes1" Type="Self.FormTypes" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="FormTypes">
+              <PropertyRef Name="FormTypeId" />
+            </Principal>
+            <Dependent Role="FormTypes1">
+              <PropertyRef Name="FormTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Permissions_Menus">
+          <End Role="Menus" Type="Self.Menus" Multiplicity="1" />
+          <End Role="Permissions" Type="Self.Permissions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Menus">
+              <PropertyRef Name="MenuId" />
+            </Principal>
+            <Dependent Role="Permissions">
+              <PropertyRef Name="MenuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Permissions_Roles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+          <End Role="Permissions" Type="Self.Permissions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="Permissions">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Permissions_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Permissions" Type="Self.Permissions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Permissions">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Roles_Roles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+          <End Role="Roles1" Type="Self.Roles" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="Roles1">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsersRoles_Roles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+          <End Role="UsersRoles" Type="Self.UsersRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="UsersRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsersRoles_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="UsersRoles" Type="Self.UsersRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UsersRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Works_Priorities">
+          <End Role="Priorities" Type="Self.Priorities" Multiplicity="1" />
+          <End Role="Works" Type="Self.Works" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Priorities">
+              <PropertyRef Name="PriorityId" />
+            </Principal>
+            <Dependent Role="Works">
+              <PropertyRef Name="PriorityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Works_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Works" Type="Self.Works" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Works">
+              <PropertyRef Name="CreatedUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Works_WorkStatuses">
+          <End Role="WorkStatuses" Type="Self.WorkStatuses" Multiplicity="0..1" />
+          <End Role="Works" Type="Self.Works" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkStatuses">
+              <PropertyRef Name="WorkStatusId" />
+            </Principal>
+            <Dependent Role="Works">
+              <PropertyRef Name="WorkStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorksUsersStatus_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="WorksUsersStatus" Type="Self.WorksUsersStatus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="WorksUsersStatus">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorksUsersStatus_Works">
+          <End Role="Works" Type="Self.Works" Multiplicity="1" />
+          <End Role="WorksUsersStatus" Type="Self.WorksUsersStatus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Works">
+              <PropertyRef Name="WorkId" />
+            </Principal>
+            <Dependent Role="WorksUsersStatus">
+              <PropertyRef Name="WorkId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorksUsersStatus_WorkStatuses">
+          <End Role="WorkStatuses" Type="Self.WorkStatuses" Multiplicity="0..1" />
+          <End Role="WorksUsersStatus" Type="Self.WorksUsersStatus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkStatuses">
+              <PropertyRef Name="WorkStatusId" />
+            </Principal>
+            <Dependent Role="WorksUsersStatus">
+              <PropertyRef Name="WorkStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="OfficeManagementSystemModelStoreContainer">
+          <EntitySet Name="Events" EntityType="Self.Events" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EventTo" EntityType="Self.EventTo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Forms" EntityType="Self.Forms" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FormsAssignedUsers" EntityType="Self.FormsAssignedUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FormStatuses" EntityType="Self.FormStatuses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FormTypes" EntityType="Self.FormTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Menus" EntityType="Self.Menus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Permissions" EntityType="Self.Permissions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Priorities" EntityType="Self.Priorities" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsersRoles" EntityType="Self.UsersRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Works" EntityType="Self.Works" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WorkStatuses" EntityType="Self.WorkStatuses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WorksUsersStatus" EntityType="Self.WorksUsersStatus" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_EventTo_Events" Association="Self.FK_EventTo_Events">
+            <End Role="Events" EntitySet="Events" />
+            <End Role="EventTo" EntitySet="EventTo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EventTo_Users" Association="Self.FK_EventTo_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="EventTo" EntitySet="EventTo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Forms_FormTypes" Association="Self.FK_Forms_FormTypes">
+            <End Role="FormTypes" EntitySet="FormTypes" />
+            <End Role="Forms" EntitySet="Forms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FormsAssignedUsers_Forms" Association="Self.FK_FormsAssignedUsers_Forms">
+            <End Role="Forms" EntitySet="Forms" />
+            <End Role="FormsAssignedUsers" EntitySet="FormsAssignedUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FormStatuses_Forms" Association="Self.FK_FormStatuses_Forms">
+            <End Role="Forms" EntitySet="Forms" />
+            <End Role="FormStatuses" EntitySet="FormStatuses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FormStatuses_Users" Association="Self.FK_FormStatuses_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="FormStatuses" EntitySet="FormStatuses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FormTypes_FormTypes" Association="Self.FK_FormTypes_FormTypes">
+            <End Role="FormTypes" EntitySet="FormTypes" />
+            <End Role="FormTypes1" EntitySet="FormTypes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Permissions_Menus" Association="Self.FK_Permissions_Menus">
+            <End Role="Menus" EntitySet="Menus" />
+            <End Role="Permissions" EntitySet="Permissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Permissions_Roles" Association="Self.FK_Permissions_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Permissions" EntitySet="Permissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Permissions_Users" Association="Self.FK_Permissions_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Permissions" EntitySet="Permissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Roles_Roles" Association="Self.FK_Roles_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Roles1" EntitySet="Roles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsersRoles_Roles" Association="Self.FK_UsersRoles_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="UsersRoles" EntitySet="UsersRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsersRoles_Users" Association="Self.FK_UsersRoles_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UsersRoles" EntitySet="UsersRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Works_Priorities" Association="Self.FK_Works_Priorities">
+            <End Role="Priorities" EntitySet="Priorities" />
+            <End Role="Works" EntitySet="Works" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Works_Users" Association="Self.FK_Works_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Works" EntitySet="Works" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Works_WorkStatuses" Association="Self.FK_Works_WorkStatuses">
+            <End Role="WorkStatuses" EntitySet="WorkStatuses" />
+            <End Role="Works" EntitySet="Works" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorksUsersStatus_Users" Association="Self.FK_WorksUsersStatus_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="WorksUsersStatus" EntitySet="WorksUsersStatus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorksUsersStatus_Works" Association="Self.FK_WorksUsersStatus_Works">
+            <End Role="Works" EntitySet="Works" />
+            <End Role="WorksUsersStatus" EntitySet="WorksUsersStatus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorksUsersStatus_WorkStatuses" Association="Self.FK_WorksUsersStatus_WorkStatuses">
+            <End Role="WorkStatuses" EntitySet="WorkStatuses" />
+            <End Role="WorksUsersStatus" EntitySet="WorksUsersStatus" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="OfficeManagementSystemModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="FirstName" MaxLength="50" FixedLength="false" Unicode="false" Type="String" />
+          <Property Name="LastName" MaxLength="50" FixedLength="false" Unicode="false" Type="String" />
+          <Property Name="Username" MaxLength="50" FixedLength="false" Unicode="false" Type="String" />
+          <Property Name="Password" MaxLength="50" FixedLength="false" Unicode="false" Type="String" />
+          <Property Name="Gender" MaxLength="10" FixedLength="false" Unicode="false" Type="String" />
+          <Property Name="Photo" MaxLength="255" FixedLength="false" Unicode="false" Type="String" />
+          <Property Name="DOB" Precision="0" Type="DateTime" />
+          <Property Name="CreatedDate" Precision="3" Type="DateTime" />
+          <Property Name="ModifiedDate" Precision="3" Type="DateTime" />
+          <Property Name="DeletedDate" Precision="3" Type="DateTime" />
+          <NavigationProperty Name="UsersRoles" Relationship="Self.FK_UsersRoles_Users" FromRole="Users" ToRole="UsersRoles" />
+          <NavigationProperty Name="Works" Relationship="OfficeManagementSystemModel.FK_Works_Users" FromRole="Users" ToRole="Works" />
+          <NavigationProperty Name="WorksUsersStatus" Relationship="OfficeManagementSystemModel.FK_WorksUsersStatus_Users" FromRole="Users" ToRole="WorksUsersStatus" />
+          <NavigationProperty Name="Permissions" Relationship="OfficeManagementSystemModel.FK_Permissions_Users" FromRole="Users" ToRole="Permissions" />
+          <NavigationProperty Name="FormStatuses" Relationship="OfficeManagementSystemModel.FK_FormStatuses_Users" FromRole="Users" ToRole="FormStatuses" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="EventTo" Relationship="OfficeManagementSystemModel.FK_EventTo_Users" FromRole="Users" ToRole="EventTo" />
+        </EntityType>
+        <EntityType Name="UsersRoles">
+          <Key>
+            <PropertyRef Name="UserRoleId" />
+          </Key>
+          <Property Name="UserRoleId" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="UserId" Nullable="false" Type="Int32" />
+          <Property Name="RoleId" Nullable="false" Type="Int32" />
+          <Property Name="CreatedDate" Precision="3" Type="DateTime" />
+          <Property Name="ModifiedDate" Precision="3" Type="DateTime" />
+          <Property Name="DeletedDate" Precision="3" Type="DateTime" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_UsersRoles_Users" FromRole="UsersRoles" ToRole="Users" />
+          <NavigationProperty Name="Roles" Relationship="OfficeManagementSystemModel.FK_UsersRoles_Roles" FromRole="UsersRoles" ToRole="Roles" />
+        </EntityType>
+        <Association Name="FK_UsersRoles_Users">
+          <End Type="Self.Users" Multiplicity="1" Role="Users" />
+          <End Type="Self.UsersRoles" Multiplicity="*" Role="UsersRoles" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="UsersRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="OfficeManagementSystemEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <EntitySet Name="UsersRoles" EntityType="Self.UsersRoles" />
+          <AssociationSet Name="FK_UsersRoles_Users" Association="Self.FK_UsersRoles_Users">
+            <End EntitySet="Users" Role="Users" />
+            <End EntitySet="UsersRoles" Role="UsersRoles" />
+          </AssociationSet>
+          <EntitySet Name="sysdiagrams" EntityType="OfficeManagementSystemModel.sysdiagrams" />
+          <EntitySet Name="FormTypes" EntityType="OfficeManagementSystemModel.FormTypes" />
+          <AssociationSet Name="FK_FormTypes_FormTypes" Association="OfficeManagementSystemModel.FK_FormTypes_FormTypes">
+            <End Role="FormTypes" EntitySet="FormTypes" />
+            <End Role="FormTypes1" EntitySet="FormTypes" />
+          </AssociationSet>
+          <EntitySet Name="FormStatuses" EntityType="OfficeManagementSystemModel.FormStatuses" />
+          <EntitySet Name="FormsAssignedUsers" EntityType="OfficeManagementSystemModel.FormsAssignedUsers" />
+          <EntitySet Name="Priorities" EntityType="OfficeManagementSystemModel.Priorities" />
+          <EntitySet Name="WorkStatuses" EntityType="OfficeManagementSystemModel.WorkStatuses" />
+          <EntitySet Name="Menus" EntityType="OfficeManagementSystemModel.Menus" />
+          <EntitySet Name="Works" EntityType="OfficeManagementSystemModel.Works" />
+          <EntitySet Name="WorksUsersStatus" EntityType="OfficeManagementSystemModel.WorksUsersStatus" />
+          <AssociationSet Name="FK_Works_Priorities" Association="OfficeManagementSystemModel.FK_Works_Priorities">
+            <End Role="Priorities" EntitySet="Priorities" />
+            <End Role="Works" EntitySet="Works" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Works_Users" Association="OfficeManagementSystemModel.FK_Works_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Works" EntitySet="Works" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorksUsersStatus_Users" Association="OfficeManagementSystemModel.FK_WorksUsersStatus_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="WorksUsersStatus" EntitySet="WorksUsersStatus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Works_WorkStatuses" Association="OfficeManagementSystemModel.FK_Works_WorkStatuses">
+            <End Role="WorkStatuses" EntitySet="WorkStatuses" />
+            <End Role="Works" EntitySet="Works" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorksUsersStatus_Works" Association="OfficeManagementSystemModel.FK_WorksUsersStatus_Works">
+            <End Role="Works" EntitySet="Works" />
+            <End Role="WorksUsersStatus" EntitySet="WorksUsersStatus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_WorksUsersStatus_WorkStatuses" Association="OfficeManagementSystemModel.FK_WorksUsersStatus_WorkStatuses">
+            <End Role="WorkStatuses" EntitySet="WorkStatuses" />
+            <End Role="WorksUsersStatus" EntitySet="WorksUsersStatus" />
+          </AssociationSet>
+          <EntitySet Name="Permissions" EntityType="OfficeManagementSystemModel.Permissions" />
+          <EntitySet Name="Roles" EntityType="OfficeManagementSystemModel.Roles" />
+          <AssociationSet Name="FK_Permissions_Menus" Association="OfficeManagementSystemModel.FK_Permissions_Menus">
+            <End Role="Menus" EntitySet="Menus" />
+            <End Role="Permissions" EntitySet="Permissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Permissions_Roles" Association="OfficeManagementSystemModel.FK_Permissions_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Permissions" EntitySet="Permissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Permissions_Users" Association="OfficeManagementSystemModel.FK_Permissions_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Permissions" EntitySet="Permissions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Roles_Roles" Association="OfficeManagementSystemModel.FK_Roles_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Roles1" EntitySet="Roles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsersRoles_Roles" Association="OfficeManagementSystemModel.FK_UsersRoles_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="UsersRoles" EntitySet="UsersRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FormStatuses_Users" Association="OfficeManagementSystemModel.FK_FormStatuses_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="FormStatuses" EntitySet="FormStatuses" />
+          </AssociationSet>
+          <EntitySet Name="Forms" EntityType="OfficeManagementSystemModel.Forms" />
+          <AssociationSet Name="FK_Forms_FormTypes" Association="OfficeManagementSystemModel.FK_Forms_FormTypes">
+            <End Role="FormTypes" EntitySet="FormTypes" />
+            <End Role="Forms" EntitySet="Forms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FormsAssignedUsers_Forms" Association="OfficeManagementSystemModel.FK_FormsAssignedUsers_Forms">
+            <End Role="Forms" EntitySet="Forms" />
+            <End Role="FormsAssignedUsers" EntitySet="FormsAssignedUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FormStatuses_Forms" Association="OfficeManagementSystemModel.FK_FormStatuses_Forms">
+            <End Role="Forms" EntitySet="Forms" />
+            <End Role="FormStatuses" EntitySet="FormStatuses" />
+          </AssociationSet>
+          <EntitySet Name="Events" EntityType="OfficeManagementSystemModel.Events" />
+          <EntitySet Name="EventTo" EntityType="OfficeManagementSystemModel.EventTo" />
+          <AssociationSet Name="FK_EventTo_Events" Association="OfficeManagementSystemModel.FK_EventTo_Events">
+            <End Role="Events" EntitySet="Events" />
+            <End Role="EventTo" EntitySet="EventTo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_EventTo_Users" Association="OfficeManagementSystemModel.FK_EventTo_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="EventTo" EntitySet="EventTo" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="FormTypes">
+          <Key>
+            <PropertyRef Name="FormTypeId" />
+          </Key>
+          <Property Name="FormTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="DeletedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="FormTypes1" Relationship="OfficeManagementSystemModel.FK_FormTypes_FormTypes" FromRole="FormTypes" ToRole="FormTypes1" />
+          <NavigationProperty Name="FormTypes2" Relationship="OfficeManagementSystemModel.FK_FormTypes_FormTypes" FromRole="FormTypes1" ToRole="FormTypes" />
+          <NavigationProperty Name="Forms" Relationship="OfficeManagementSystemModel.FK_Forms_FormTypes" FromRole="FormTypes" ToRole="Forms" />
+        </EntityType>
+        <Association Name="FK_FormTypes_FormTypes">
+          <End Type="OfficeManagementSystemModel.FormTypes" Role="FormTypes" Multiplicity="1" />
+          <End Type="OfficeManagementSystemModel.FormTypes" Role="FormTypes1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="FormTypes">
+              <PropertyRef Name="FormTypeId" />
+            </Principal>
+            <Dependent Role="FormTypes1">
+              <PropertyRef Name="FormTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="FormStatuses">
+          <Key>
+            <PropertyRef Name="FormStatusId" />
+          </Key>
+          <Property Name="FormStatusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FormId" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" Nullable="false" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="DeletedDate" Type="DateTime" Precision="3" />
+          <Property Name="UserId" Type="Int32" />
+          <NavigationProperty Name="Users" Relationship="OfficeManagementSystemModel.FK_FormStatuses_Users" FromRole="FormStatuses" ToRole="Users" />
+          <Property Name="IsApproved" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Forms" Relationship="OfficeManagementSystemModel.FK_FormStatuses_Forms" FromRole="FormStatuses" ToRole="Forms" />
+        </EntityType>
+        <EntityType Name="FormsAssignedUsers">
+          <Key>
+            <PropertyRef Name="FormsAssignedUsersId" />
+          </Key>
+          <Property Name="FormsAssignedUsersId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FormId" Type="Int32" Nullable="false" />
+          <Property Name="AssignedUserId" Type="Int32" Nullable="false" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="DeletedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Forms" Relationship="OfficeManagementSystemModel.FK_FormsAssignedUsers_Forms" FromRole="FormsAssignedUsers" ToRole="Forms" />
+        </EntityType>
+        <EntityType Name="Priorities">
+          <Key>
+            <PropertyRef Name="PriorityId" />
+          </Key>
+          <Property Name="PriorityId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Priority" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Works" Relationship="OfficeManagementSystemModel.FK_Works_Priorities" FromRole="Priorities" ToRole="Works" />
+        </EntityType>
+        <EntityType Name="WorkStatuses">
+          <Key>
+            <PropertyRef Name="WorkStatusId" />
+          </Key>
+          <Property Name="WorkStatusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Works" Relationship="OfficeManagementSystemModel.FK_Works_WorkStatuses" FromRole="WorkStatuses" ToRole="Works" />
+          <NavigationProperty Name="WorksUsersStatus" Relationship="OfficeManagementSystemModel.FK_WorksUsersStatus_WorkStatuses" FromRole="WorkStatuses" ToRole="WorksUsersStatus" />
+        </EntityType>
+        <EntityType Name="Menus">
+          <Key>
+            <PropertyRef Name="MenuId" />
+          </Key>
+          <Property Name="MenuId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ParentId" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Link" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DeletedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Permissions" Relationship="OfficeManagementSystemModel.FK_Permissions_Menus" FromRole="Menus" ToRole="Permissions" />
+        </EntityType>
+        <EntityType Name="Works">
+          <Key>
+            <PropertyRef Name="WorkId" />
+          </Key>
+          <Property Name="WorkId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Deadline" Type="DateTime" Precision="3" />
+          <Property Name="CreatedUserId" Type="Int32" Nullable="false" />
+          <Property Name="PriorityId" Type="Int32" Nullable="false" />
+          <Property Name="WorkStatusId" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="DeletedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Priorities" Relationship="OfficeManagementSystemModel.FK_Works_Priorities" FromRole="Works" ToRole="Priorities" />
+          <NavigationProperty Name="Users" Relationship="OfficeManagementSystemModel.FK_Works_Users" FromRole="Works" ToRole="Users" />
+          <NavigationProperty Name="WorkStatuses" Relationship="OfficeManagementSystemModel.FK_Works_WorkStatuses" FromRole="Works" ToRole="WorkStatuses" />
+          <NavigationProperty Name="WorksUsersStatus" Relationship="OfficeManagementSystemModel.FK_WorksUsersStatus_Works" FromRole="Works" ToRole="WorksUsersStatus" />
+        </EntityType>
+        <EntityType Name="WorksUsersStatus">
+          <Key>
+            <PropertyRef Name="WorkUserStatusId" />
+          </Key>
+          <Property Name="WorkUserStatusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="WorkId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="WorkStatusId" Type="Int32" />
+          <Property Name="AssignedUserId" Type="Int32" />
+          <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="DeletedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Users" Relationship="OfficeManagementSystemModel.FK_WorksUsersStatus_Users" FromRole="WorksUsersStatus" ToRole="Users" />
+          <NavigationProperty Name="Works" Relationship="OfficeManagementSystemModel.FK_WorksUsersStatus_Works" FromRole="WorksUsersStatus" ToRole="Works" />
+          <NavigationProperty Name="WorkStatuses" Relationship="OfficeManagementSystemModel.FK_WorksUsersStatus_WorkStatuses" FromRole="WorksUsersStatus" ToRole="WorkStatuses" />
+        </EntityType>
+        <Association Name="FK_Works_Priorities">
+          <End Type="OfficeManagementSystemModel.Priorities" Role="Priorities" Multiplicity="1" />
+          <End Type="OfficeManagementSystemModel.Works" Role="Works" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Priorities">
+              <PropertyRef Name="PriorityId" />
+            </Principal>
+            <Dependent Role="Works">
+              <PropertyRef Name="PriorityId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Works_Users">
+          <End Type="OfficeManagementSystemModel.Users" Role="Users" Multiplicity="1" />
+          <End Type="OfficeManagementSystemModel.Works" Role="Works" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Works">
+              <PropertyRef Name="CreatedUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorksUsersStatus_Users">
+          <End Type="OfficeManagementSystemModel.Users" Role="Users" Multiplicity="1" />
+          <End Type="OfficeManagementSystemModel.WorksUsersStatus" Role="WorksUsersStatus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="WorksUsersStatus">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Works_WorkStatuses">
+          <End Type="OfficeManagementSystemModel.WorkStatuses" Role="WorkStatuses" Multiplicity="0..1" />
+          <End Type="OfficeManagementSystemModel.Works" Role="Works" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkStatuses">
+              <PropertyRef Name="WorkStatusId" />
+            </Principal>
+            <Dependent Role="Works">
+              <PropertyRef Name="WorkStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorksUsersStatus_Works">
+          <End Type="OfficeManagementSystemModel.Works" Role="Works" Multiplicity="1" />
+          <End Type="OfficeManagementSystemModel.WorksUsersStatus" Role="WorksUsersStatus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Works">
+              <PropertyRef Name="WorkId" />
+            </Principal>
+            <Dependent Role="WorksUsersStatus">
+              <PropertyRef Name="WorkId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_WorksUsersStatus_WorkStatuses">
+          <End Type="OfficeManagementSystemModel.WorkStatuses" Role="WorkStatuses" Multiplicity="0..1" />
+          <End Type="OfficeManagementSystemModel.WorksUsersStatus" Role="WorksUsersStatus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkStatuses">
+              <PropertyRef Name="WorkStatusId" />
+            </Principal>
+            <Dependent Role="WorksUsersStatus">
+              <PropertyRef Name="WorkStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Permissions">
+          <Key>
+            <PropertyRef Name="PermissionId" />
+          </Key>
+          <Property Name="PermissionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="MenuId" Type="Int32" Nullable="false" />
+          <Property Name="DeletedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Menus" Relationship="OfficeManagementSystemModel.FK_Permissions_Menus" FromRole="Permissions" ToRole="Menus" />
+          <NavigationProperty Name="Roles" Relationship="OfficeManagementSystemModel.FK_Permissions_Roles" FromRole="Permissions" ToRole="Roles" />
+          <NavigationProperty Name="Users" Relationship="OfficeManagementSystemModel.FK_Permissions_Users" FromRole="Permissions" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="DeletedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Permissions" Relationship="OfficeManagementSystemModel.FK_Permissions_Roles" FromRole="Roles" ToRole="Permissions" />
+          <NavigationProperty Name="Roles1" Relationship="OfficeManagementSystemModel.FK_Roles_Roles" FromRole="Roles" ToRole="Roles1" />
+          <NavigationProperty Name="Roles2" Relationship="OfficeManagementSystemModel.FK_Roles_Roles" FromRole="Roles1" ToRole="Roles" />
+          <NavigationProperty Name="UsersRoles" Relationship="OfficeManagementSystemModel.FK_UsersRoles_Roles" FromRole="Roles" ToRole="UsersRoles" />
+        </EntityType>
+        <Association Name="FK_Permissions_Menus">
+          <End Type="OfficeManagementSystemModel.Menus" Role="Menus" Multiplicity="1" />
+          <End Type="OfficeManagementSystemModel.Permissions" Role="Permissions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Menus">
+              <PropertyRef Name="MenuId" />
+            </Principal>
+            <Dependent Role="Permissions">
+              <PropertyRef Name="MenuId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Permissions_Roles">
+          <End Type="OfficeManagementSystemModel.Roles" Role="Roles" Multiplicity="1" />
+          <End Type="OfficeManagementSystemModel.Permissions" Role="Permissions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="Permissions">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Permissions_Users">
+          <End Type="OfficeManagementSystemModel.Users" Role="Users" Multiplicity="0..1" />
+          <End Type="OfficeManagementSystemModel.Permissions" Role="Permissions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Permissions">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Roles_Roles">
+          <End Type="OfficeManagementSystemModel.Roles" Role="Roles" Multiplicity="1" />
+          <End Type="OfficeManagementSystemModel.Roles" Role="Roles1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="Roles1">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsersRoles_Roles">
+          <End Type="OfficeManagementSystemModel.Roles" Role="Roles" Multiplicity="1" />
+          <End Type="OfficeManagementSystemModel.UsersRoles" Role="UsersRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="UsersRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FormStatuses_Users">
+          <End Type="OfficeManagementSystemModel.Users" Role="Users" Multiplicity="0..1" />
+          <End Type="OfficeManagementSystemModel.FormStatuses" Role="FormStatuses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="FormStatuses">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Forms">
+          <Key>
+            <PropertyRef Name="FormId" />
+          </Key>
+          <Property Name="FormId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FormTypeId" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedUserId" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="DeletedDate" Type="DateTime" Precision="3" />
+          <Property Name="MeetingDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="FormTypes" Relationship="OfficeManagementSystemModel.FK_Forms_FormTypes" FromRole="Forms" ToRole="FormTypes" />
+          <NavigationProperty Name="FormsAssignedUsers" Relationship="OfficeManagementSystemModel.FK_FormsAssignedUsers_Forms" FromRole="Forms" ToRole="FormsAssignedUsers" />
+          <NavigationProperty Name="FormStatuses" Relationship="OfficeManagementSystemModel.FK_FormStatuses_Forms" FromRole="Forms" ToRole="FormStatuses" />
+        </EntityType>
+        <Association Name="FK_Forms_FormTypes">
+          <End Type="OfficeManagementSystemModel.FormTypes" Role="FormTypes" Multiplicity="1" />
+          <End Type="OfficeManagementSystemModel.Forms" Role="Forms" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FormTypes">
+              <PropertyRef Name="FormTypeId" />
+            </Principal>
+            <Dependent Role="Forms">
+              <PropertyRef Name="FormTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FormsAssignedUsers_Forms">
+          <End Type="OfficeManagementSystemModel.Forms" Role="Forms" Multiplicity="1" />
+          <End Type="OfficeManagementSystemModel.FormsAssignedUsers" Role="FormsAssignedUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Forms">
+              <PropertyRef Name="FormId" />
+            </Principal>
+            <Dependent Role="FormsAssignedUsers">
+              <PropertyRef Name="FormId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FormStatuses_Forms">
+          <End Type="OfficeManagementSystemModel.Forms" Role="Forms" Multiplicity="1" />
+          <End Type="OfficeManagementSystemModel.FormStatuses" Role="FormStatuses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Forms">
+              <PropertyRef Name="FormId" />
+            </Principal>
+            <Dependent Role="FormStatuses">
+              <PropertyRef Name="FormId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Events">
+          <Key>
+            <PropertyRef Name="EventId" />
+          </Key>
+          <Property Name="EventId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Subject" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Body" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="EventToId" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="DeletedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="EventTo" Relationship="OfficeManagementSystemModel.FK_EventTo_Events" FromRole="Events" ToRole="EventTo" />
+        </EntityType>
+        <EntityType Name="EventTo">
+          <Key>
+            <PropertyRef Name="EventToId" />
+          </Key>
+          <Property Name="EventToId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EventId" Type="Int32" />
+          <Property Name="UserId" Type="Int32" />
+          <NavigationProperty Name="Events" Relationship="OfficeManagementSystemModel.FK_EventTo_Events" FromRole="EventTo" ToRole="Events" />
+          <NavigationProperty Name="Users" Relationship="OfficeManagementSystemModel.FK_EventTo_Users" FromRole="EventTo" ToRole="Users" />
+        </EntityType>
+        <Association Name="FK_EventTo_Events">
+          <End Type="OfficeManagementSystemModel.Events" Role="Events" Multiplicity="0..1" />
+          <End Type="OfficeManagementSystemModel.EventTo" Role="EventTo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Events">
+              <PropertyRef Name="EventId" />
+            </Principal>
+            <Dependent Role="EventTo">
+              <PropertyRef Name="EventId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_EventTo_Users">
+          <End Type="OfficeManagementSystemModel.Users" Role="Users" Multiplicity="0..1" />
+          <End Type="OfficeManagementSystemModel.EventTo" Role="EventTo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="EventTo">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="OfficeManagementSystemModelStoreContainer" CdmEntityContainer="OfficeManagementSystemEntities">
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="OfficeManagementSystemModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Photo" ColumnName="Photo" />
+                <ScalarProperty Name="DOB" ColumnName="DOB" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="DeletedDate" ColumnName="DeletedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UsersRoles">
+            <EntityTypeMapping TypeName="OfficeManagementSystemModel.UsersRoles">
+              <MappingFragment StoreEntitySet="UsersRoles">
+                <ScalarProperty Name="UserRoleId" ColumnName="UserRoleId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="DeletedDate" ColumnName="DeletedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="OfficeManagementSystemModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FormTypes">
+            <EntityTypeMapping TypeName="OfficeManagementSystemModel.FormTypes">
+              <MappingFragment StoreEntitySet="FormTypes">
+                <ScalarProperty Name="DeletedDate" ColumnName="DeletedDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="FormTypeId" ColumnName="FormTypeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FormStatuses">
+            <EntityTypeMapping TypeName="OfficeManagementSystemModel.FormStatuses">
+              <MappingFragment StoreEntitySet="FormStatuses">
+                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="DeletedDate" ColumnName="DeletedDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="FormId" ColumnName="FormId" />
+                <ScalarProperty Name="FormStatusId" ColumnName="FormStatusId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FormsAssignedUsers">
+            <EntityTypeMapping TypeName="OfficeManagementSystemModel.FormsAssignedUsers">
+              <MappingFragment StoreEntitySet="FormsAssignedUsers">
+                <ScalarProperty Name="DeletedDate" ColumnName="DeletedDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="AssignedUserId" ColumnName="AssignedUserId" />
+                <ScalarProperty Name="FormId" ColumnName="FormId" />
+                <ScalarProperty Name="FormsAssignedUsersId" ColumnName="FormsAssignedUsersId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Priorities">
+            <EntityTypeMapping TypeName="OfficeManagementSystemModel.Priorities">
+              <MappingFragment StoreEntitySet="Priorities">
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="PriorityId" ColumnName="PriorityId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WorkStatuses">
+            <EntityTypeMapping TypeName="OfficeManagementSystemModel.WorkStatuses">
+              <MappingFragment StoreEntitySet="WorkStatuses">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="WorkStatusId" ColumnName="WorkStatusId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Menus">
+            <EntityTypeMapping TypeName="OfficeManagementSystemModel.Menus">
+              <MappingFragment StoreEntitySet="Menus">
+                <ScalarProperty Name="DeletedDate" ColumnName="DeletedDate" />
+                <ScalarProperty Name="Link" ColumnName="Link" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+                <ScalarProperty Name="MenuId" ColumnName="MenuId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Works">
+            <EntityTypeMapping TypeName="OfficeManagementSystemModel.Works">
+              <MappingFragment StoreEntitySet="Works">
+                <ScalarProperty Name="DeletedDate" ColumnName="DeletedDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="WorkStatusId" ColumnName="WorkStatusId" />
+                <ScalarProperty Name="PriorityId" ColumnName="PriorityId" />
+                <ScalarProperty Name="CreatedUserId" ColumnName="CreatedUserId" />
+                <ScalarProperty Name="Deadline" ColumnName="Deadline" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="WorkId" ColumnName="WorkId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WorksUsersStatus">
+            <EntityTypeMapping TypeName="OfficeManagementSystemModel.WorksUsersStatus">
+              <MappingFragment StoreEntitySet="WorksUsersStatus">
+                <ScalarProperty Name="DeletedDate" ColumnName="DeletedDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="AssignedUserId" ColumnName="AssignedUserId" />
+                <ScalarProperty Name="WorkStatusId" ColumnName="WorkStatusId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="WorkId" ColumnName="WorkId" />
+                <ScalarProperty Name="WorkUserStatusId" ColumnName="WorkUserStatusId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Permissions">
+            <EntityTypeMapping TypeName="OfficeManagementSystemModel.Permissions">
+              <MappingFragment StoreEntitySet="Permissions">
+                <ScalarProperty Name="DeletedDate" ColumnName="DeletedDate" />
+                <ScalarProperty Name="MenuId" ColumnName="MenuId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="PermissionId" ColumnName="PermissionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="OfficeManagementSystemModel.Roles">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="DeletedDate" ColumnName="DeletedDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Forms">
+            <EntityTypeMapping TypeName="OfficeManagementSystemModel.Forms">
+              <MappingFragment StoreEntitySet="Forms">
+                <ScalarProperty Name="MeetingDate" ColumnName="MeetingDate" />
+                <ScalarProperty Name="DeletedDate" ColumnName="DeletedDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedUserId" ColumnName="CreatedUserId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="FormTypeId" ColumnName="FormTypeId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="FormId" ColumnName="FormId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Events">
+            <EntityTypeMapping TypeName="OfficeManagementSystemModel.Events">
+              <MappingFragment StoreEntitySet="Events">
+                <ScalarProperty Name="DeletedDate" ColumnName="DeletedDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="EventToId" ColumnName="EventToId" />
+                <ScalarProperty Name="Body" ColumnName="Body" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="EventId" ColumnName="EventId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EventTo">
+            <EntityTypeMapping TypeName="OfficeManagementSystemModel.EventTo">
+              <MappingFragment StoreEntitySet="EventTo">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="EventId" ColumnName="EventId" />
+                <ScalarProperty Name="EventToId" ColumnName="EventToId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,80 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+<link href="~/Content/assets/commentbox.css" rel="stylesheet" />
+
+
+<div class="container">
+    <div class="panel-group" id="accordion">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                        Received Forms
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    <div class="row" style="margin-left:350px;">
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="txtReceivedSearch" placeholder="Enter subject...">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" onclick="GetReceivedForm()">Search</button>
+                                </span>
+
+                            </div><!-- /input-group -->
+                        </div><!-- /.col-lg-6 -->
+                    </div>
+                    <hr />
+
+                    <div id="receivedFormDiv" style="margin-left:70px;margin-right:70px;">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+
+                <h4 class="panel-title">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                        Sent Forms
+                    </a>
+                </h4>
+            </div>
+            <div id="collapseTwo" class="panel-collapse collapse in">
+                <div class="panel-body">
+                    <div class="row" style="margin-left:350px;">
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="txtSentSearch" placeholder="Enter subject...">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button" onclick="GetSentForm()">Search</button>
+                                </span>
+
+                            </div><!-- /input-group -->
+                        </div><!-- /.col-lg-6 -->
+                    </div>
+                    <hr />
+                    <div id="sentFormDiv" style="margin-left:70px;margin-right:70px;">
+                      
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/form.js"></script>
+<script>
+    GetReceivedForm()
+    GetSentForm()
+</script>
+
+
+
+

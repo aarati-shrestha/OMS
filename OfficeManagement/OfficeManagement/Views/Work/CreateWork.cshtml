@@ -1,0 +1,54 @@
+﻿@model OfficeManagement.Models.WorkModel
+@{
+    ViewBag.Title = "Index";
+    
+    List<SelectListItem> priorityList = ViewBag.PriorityList;
+    List<SelectListItem> workStatusList = ViewBag.WorkStatusList;
+}
+
+<link href="~/Content/assets/common.css" rel="stylesheet" />
+<div class="panel panel-default" style="margin:0 370px 0 300px;">
+    <div class="panel-body">
+        @using (Html.BeginForm("CreateWork", "Work", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
+        {
+
+
+            @Html.ValidationSummary(true);
+        <div class="form-group">
+            @Html.Label("title", "Work Title", new { @class = "col-sm-3 control-label" })
+            <div class="col-sm-9">
+                @Html.TextBoxFor(model => model.Title, new { @class="form-control"})
+                @Html.ValidationMessageFor(model => model.Title, null,new{ @class="errorValidation"})
+            </div>
+        </div>
+    <div class="form-group">
+        @Html.Label("description", "Description", new { @class = "col-sm-3 control-label" })
+        <div class="col-sm-9">
+            @Html.TextAreaFor(model => model.Description, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model=>model.Description, null,new{ @class="errorValidation"})
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.Label("deadline", "Deadline", new { @class = "col-sm-3 control-label" })
+        <div class="col-sm-9">
+            @Html.TextBoxFor(model => model.Deadline, new { @class = "form-control", type = "date" })
+            @Html.ValidationMessageFor(model=>model.Deadline, null,new{ @class="errorValidation"})
+        </div>
+    </div>
+   
+    <div class="form-group">
+        @Html.Label("priority", "Priority:", new { @class = "col-sm-3 control-label" })
+        <div class="col-sm-9">
+            @Html.DropDownListFor(model => model.PriorityId, priorityList, "select Priority", new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.PriorityId, null, new { @class = "errorValidation" })
+        </div>
+    </div>
+    <div class="form-group" style="margin-left: 117px;">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-default">Submit</button>
+        </div>
+    </div>
+    
+        }
+    </div>
+</div>

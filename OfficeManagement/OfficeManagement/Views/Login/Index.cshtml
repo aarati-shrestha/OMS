@@ -1,0 +1,47 @@
+﻿@{
+    ViewBag.Title = "Login";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>@ViewBag.Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- styles -->
+
+    <link href="~/Content/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="~/Content/assets/Signin.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="container">
+        @using (Html.BeginForm("Index", "Login", FormMethod.Post, new { @class = "form-signin" }))
+        {
+            <h2 class="form-signin-heading">Please sign in</h2>
+            <label for="inputEmail" class="sr-only">Email address</label>
+            @Html.TextBox("username", string.Empty, new { @class = "input-block-level form-control", placeholder = "Username" })
+            <label for="inputPassword" class="sr-only">Password</label>
+            @Html.Password("password", string.Empty, new { @class = "input-block-level form-control", placeholder = "Password" })
+
+            @*<div >
+                <label class="checkbox">
+                    @Html.CheckBox("checkbox", "remember-me")
+                    @Html.Label("label", "Remember me", new { @class = "checkbox" })
+                </label>
+            </div>*@
+            <button class="btn btn-lg btn-primary btn-block" id="btnLogin" type="submit">Sign in</button>
+
+        }
+        @if (ViewBag.ErrorMessage != "")
+        {
+            <label class="checkbox">@ViewBag.ErrorMessage</label>
+        }
+
+    </div>
+</body>
+</html>

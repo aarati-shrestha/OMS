@@ -1,0 +1,64 @@
+﻿@{
+    ViewBag.Title = "Index";
+    string role = Session["RoleType"].ToString().ToLower();
+}
+
+<div class="panel panel-default" id="divMain" style="margin:0 50px 0 50px;">
+    <div style="margin:0 0 10px 10px;">
+        <div class="row" style="margin-left:300px;">
+            <div class="col-sm-6">
+                <div class="input-group">
+                    <input type="text" class="form-control col-sm-8" id="txtSearch" placeholder="Enter Title...">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" onkeypress="getWork(1)" onclick="    getWork(1)">Search</button>
+                    </span>
+                </div><!-- /input-group -->
+            </div><!-- /.col-lg-6 -->
+        </div>
+        <hr />
+
+        <div class="btn-group btn-group-justified" role="group" aria-label="...">
+            <div class="btn-group" style="width:1px;" role="group">
+                @if (role == "admin")
+                {
+                    <button type="button" onclick="DeleteCheckedWork()" id="btnDelete" class="btn btn-danger">
+                        Delete
+                    </button>
+                }
+            </div>
+            <div class="btn-group input-group-btn" role="group">
+                @if (role != "employee")
+                {
+                    <select class="btn btn-default" style="width:120px;" id="assignedOrCreatedDDL" onchange="getWork(1)">
+                        <option value="0"> Select</option>
+                        <option value="1">Assigned Tasks</option>
+                        <option value="2">Created Tasks</option>
+                    </select>
+                }
+                else
+                {
+                    <select class="btn btn-default" style="width:90px;display:none" id="assignedOrCreatedDDL" onchange="getWork(1)">
+                        <option value="0"> Select</option>
+                        <option value="1">Assigned Tasks</option>
+                        <option value="2">Created Tasks</option>
+                    </select>
+                }
+            </div>
+        </div>
+        <hr />
+        <div class="table-responsive" id="divWorkList">
+
+
+        </div>
+        @if (role != "employee")
+        {
+            <hr />
+            <a href="~/Work/CreateWork"><img src="~/images/user.png" height="15" width="15" />&nbsp;<u>Add new Work</u></a>
+
+        }
+    </div>
+</div>
+<script src="~/Scripts/work.js"></script>
+<script type="text/javascript">
+    getWork(1);
+</script>

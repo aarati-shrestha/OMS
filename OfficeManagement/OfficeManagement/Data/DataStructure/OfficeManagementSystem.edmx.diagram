@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="33f3ddce8f6c44c98471fe99ab668b2e" Name="Diagram1" ZoomLevel="64">
+        <EntityTypeShape EntityType="OfficeManagementSystemModel.Users" PointX="0.5" PointY="0.5" Width="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="OfficeManagementSystemModel.UsersRoles" PointX="7.125" PointY="2.75" Width="1.5" IsExpanded="true" />
+        <AssociationConnector ManuallyRouted="false" Association="OfficeManagementSystemModel.FK_UsersRoles_Users" />
+        <EntityTypeShape EntityType="OfficeManagementSystemModel.sysdiagrams" Width="1.5" PointX="3.375" PointY="8.75" />
+        <EntityTypeShape EntityType="OfficeManagementSystemModel.FormTypes" Width="1.5" PointX="1.125" PointY="12.25" />
+        <AssociationConnector Association="OfficeManagementSystemModel.FK_FormTypes_FormTypes" />
+        <EntityTypeShape EntityType="OfficeManagementSystemModel.FormStatuses" Width="1.5" PointX="5.625" PointY="12.375" />
+        <EntityTypeShape EntityType="OfficeManagementSystemModel.FormsAssignedUsers" Width="1.5" PointX="5.625" PointY="15.875" />
+        <EntityTypeShape EntityType="OfficeManagementSystemModel.Priorities" Width="1.5" PointX="0.75" PointY="7.75" />
+        <EntityTypeShape EntityType="OfficeManagementSystemModel.WorkStatuses" Width="1.5" PointX="0.75" PointY="10.125" />
+        <EntityTypeShape EntityType="OfficeManagementSystemModel.Menus" Width="1.5" PointX="9.375" PointY="0.875" />
+        <EntityTypeShape EntityType="OfficeManagementSystemModel.Works" Width="1.5" PointX="3" PointY="1.375" />
+        <EntityTypeShape EntityType="OfficeManagementSystemModel.WorksUsersStatus" Width="1.5" PointX="10.25" PointY="4.5" />
+        <AssociationConnector Association="OfficeManagementSystemModel.FK_Works_Priorities" />
+        <AssociationConnector Association="OfficeManagementSystemModel.FK_Works_Users" />
+        <AssociationConnector Association="OfficeManagementSystemModel.FK_WorksUsersStatus_Users" />
+        <AssociationConnector Association="OfficeManagementSystemModel.FK_Works_WorkStatuses" />
+        <AssociationConnector Association="OfficeManagementSystemModel.FK_WorksUsersStatus_Works" />
+        <AssociationConnector Association="OfficeManagementSystemModel.FK_WorksUsersStatus_WorkStatuses" />
+        <EntityTypeShape EntityType="OfficeManagementSystemModel.Permissions" Width="1.5" PointX="12.625" PointY="4" />
+        <EntityTypeShape EntityType="OfficeManagementSystemModel.Roles" Width="1.5" PointX="8.375" PointY="9.125" />
+        <AssociationConnector Association="OfficeManagementSystemModel.FK_Permissions_Menus" />
+        <AssociationConnector Association="OfficeManagementSystemModel.FK_Permissions_Roles" />
+        <AssociationConnector Association="OfficeManagementSystemModel.FK_Permissions_Users" />
+        <AssociationConnector Association="OfficeManagementSystemModel.FK_Roles_Roles" />
+        <AssociationConnector Association="OfficeManagementSystemModel.FK_UsersRoles_Roles" />
+        <AssociationConnector Association="OfficeManagementSystemModel.FK_FormStatuses_Users" />
+        <EntityTypeShape EntityType="OfficeManagementSystemModel.Forms" Width="1.5" PointX="3.375" PointY="11.875" />
+        <AssociationConnector Association="OfficeManagementSystemModel.FK_Forms_FormTypes" />
+        <AssociationConnector Association="OfficeManagementSystemModel.FK_FormsAssignedUsers_Forms" />
+        <AssociationConnector Association="OfficeManagementSystemModel.FK_FormStatuses_Forms" />
+        <EntityTypeShape EntityType="OfficeManagementSystemModel.Events" Width="1.5" PointX="3.5" PointY="20" />
+        <EntityTypeShape EntityType="OfficeManagementSystemModel.EventTo" Width="1.5" PointX="5.75" PointY="0.75" />
+        <AssociationConnector Association="OfficeManagementSystemModel.FK_EventTo_Events" />
+        <AssociationConnector Association="OfficeManagementSystemModel.FK_EventTo_Users" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

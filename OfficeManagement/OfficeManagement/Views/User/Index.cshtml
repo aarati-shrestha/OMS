@@ -1,0 +1,43 @@
+﻿@{
+    int roleId = (int)Session["RoleId"];
+}
+
+@if (roleId == 3)
+{
+
+    <div class="panel panel-default" style="margin:0 50px 0 50px;">
+        <div class="panel-body">
+            <div class="row" style="margin-left:350px;">
+                <div class="col-sm-6">
+                    <div class="input-group">
+                        <input type="text" class="form-control" id="txtSearch" placeholder="Enter username...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button" onclick="GetUser()">Search</button>
+                        </span>
+
+                    </div><!-- /input-group -->
+                </div><!-- /.col-lg-6 -->
+            </div>
+            <hr />
+            <button type="button" class="btn btn-danger" onclick="DeleteCheckedUser()" id="btnDelete">
+                Delete
+            </button>
+            <hr />
+            <div class="table-responsive" id="userListDiv">
+
+            </div>
+
+            <hr />
+            <a href="~/User/CreateUser"><img src="~/images/user.png" height="15" width="15" />&nbsp;<u>Create new user</u></a>
+        </div>
+    </div>
+    <script src="~/Scripts/user.js"></script>
+    <script>
+        GetUser();
+    </script>
+}
+
+else
+{
+    <h1 style="color:red;">Access Denied</h1>
+}

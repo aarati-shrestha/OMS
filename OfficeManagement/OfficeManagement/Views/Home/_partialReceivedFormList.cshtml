@@ -1,0 +1,67 @@
+﻿@using OfficeManagement.Models
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th style="display:none;">Form ID</th>
+            <th>Sent By</th>
+            <th>Subject</th>
+            <th>Sent Date</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var data in Model)
+        {
+
+            <tr>
+                <td style="display:none;">@data.FormId</td>
+                <td>@data.CreatedNameOfUser</td>
+                <td>@data.Name</td>
+                <td>@data.CreatedDate</td>
+                @if (@data.FormTypeName.ToLower() == "leave")
+                {
+                    if (data.IsApproved == true)
+                    {
+
+                        <td>
+                            <img height="20" width="20" src=" ~/images/tick.ico" />
+                                  </td>
+                    }
+                    else
+                    {
+
+                        <td><img height="20" width="20" src="~/images/cross.png" /></td>
+                    }
+                }
+                @if (@data.FormTypeName.ToLower() == "meeting")
+                {
+                    <td>
+                        <div class="comment-head">
+                            @if (DateTime.Now < @data.MeetingDate)
+                            {
+                                <div><a href="#" style="color:green"> Pending</a></div>
+                                <span id="dateSpan" style="font-size:10px;">@data.MeetingDate</span>
+                            }
+                            @if (DateTime.Now > @data.MeetingDate)
+                            {
+                                <div><a href="#" style="color:red"> Over</a></div>
+                                <span id="dateSpan" style="font-size:10px;">@data.MeetingDate</span>
+                            }
+                            @if (DateTime.Now == @data.MeetingDate)
+                            {
+                                <div><a href="#" style="color:blue"> Happening</a></div>
+                                <span id="dateSpan" style="font-size:10px;">@data.MeetingDate</span>
+                            }
+
+                        </div>
+                    </td>
+                }
+                <td><a href="~/Form/Detail/@data.FormId">View>></a></td>
+            </tr>
+
+
+        }
+
+    </tbody>
+</table>

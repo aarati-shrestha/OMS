@@ -1,0 +1,104 @@
+﻿@model OfficeManagement.Models.UserModel
+
+@{
+    ViewBag.Title = "UserDetail";
+    // string roleType=ViewBag.RoleType;
+    List<SelectListItem> roleTypeList = ViewBag.RoleTypeList;
+}
+<script src="~/Scripts/user.js"></script>
+<script src="~/Scripts/user.js"></script>
+<div class="panel panel-default" style="margin:0 50px 0 50px;">
+    <div class="panel-body">
+        <h2 class=" modal-title" id="myModalLabel">Details</h2>
+        <hr />
+        @using (Html.BeginForm("Detail", "User", FormMethod.Post, new { @class = "form-horizontal", id = "userDetail" }))
+        {
+
+            <div>
+                @Html.HiddenFor(model => model.UserId)
+                @Html.HiddenFor(model => model.Password)
+            </div>
+            @Html.ValidationSummary(true)
+            <div class="form-group">
+                @Html.Label("First Name:", new { @class = "col-sm-3 control-label" })
+                <div class="col-sm-7">
+                    @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model=>model.FirstName)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("Last Name:", new { @class = "col-sm-3 control-label" })
+                <div class="col-sm-7">
+                    @Html.TextBoxFor(model => model.LastName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model=>model.LastName)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Username:", new { @class = "col-sm-3 control-label" })
+                <div class="col-sm-7">
+                    @Html.TextBoxFor(model => model.Username, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model=>model.Username)
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Gender", new { @class = "col-sm-3 control-label" })
+                <div class="col-sm-7">
+                    @Html.RadioButtonFor(model => model.Gender, "Female")
+                    @Html.LabelFor(model => model.Gender, "Female")
+                    @Html.RadioButtonFor(model => model.Gender, "Male")
+                    @Html.LabelFor(model => model.Gender, "Male")
+                    @Html.ValidationMessageFor(model=>model.Gender)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("Date of Birth:", new { @class = "col-sm-3 control-label" })
+                <div class="col-sm-7">
+
+                    @Html.TextBoxFor(model => model.DOB, new { @class = "form-control" })
+
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("Role:", new { @class = "col-sm-3 control-label" })
+                <div class="col-sm-7">
+                    @Html.DropDownListFor(model => model.RoleId, roleTypeList,"Manager List",new { @class = "form-control", @selected = "selected" })
+                    @Html.ValidationMessageFor(model=>model.RoleId)
+
+                </div>
+            </div>
+
+    <div id="divChangePassword" class="panel panel-default" style="margin: 0 190px 0 190px; display:none;">
+        <div class="panel-body">
+            <div class="form-group">
+                @Html.Label("Current Password", new { @class = "col-sm-3 control-label" })
+                <div class="col-sm-7">
+                    @Html.Password("currentPassword", "", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model=>model.Password)
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("New Password:", new { @class = "col-sm-3 control-label" })
+                <div class="col-sm-7">
+                    @Html.Password("newPassword", "", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Password)
+                </div>
+            </div>
+            <div class="col-sm-offset-2 col-sm-10" style="margin-left:225px;">
+                <input type="button" onclick="ChangePassword()" class="btn btn-sm" value="Change" />
+            </div>
+        </div>
+
+    </div>
+    <div class="form-group col-sm-8" style="float:right;"><a href="#" onclick="$('#divChangePassword').show()">Change Password</a></div>
+            <div class="form-group" style="margin-left: 260px;">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <input type="submit" onclick="UpdateUser()" class="btn btn-primary btn-lg" value="Save" />
+                </div>
+            </div>
+            <hr/>
+            <a href="/User/Report/@Model.UserId">View Leave Record</a>
+        }
+    </div>
+</div>

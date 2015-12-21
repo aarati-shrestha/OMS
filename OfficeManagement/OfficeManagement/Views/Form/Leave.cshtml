@@ -1,0 +1,44 @@
+﻿@model OfficeManagement.Models.FormModel
+
+@{
+    ViewBag.Title = "Form";
+    List<SelectListItem> managerList = ViewBag.ManagerList;
+    List<SelectListItem> userNameList = ViewBag.UserNameList;
+    DateTime date = DateTime.Now;
+}
+<link href="~/Content/assets/common.css" rel="stylesheet" />
+@*<div class="container">*@
+
+    @using (Html.BeginForm("Leave", "Form", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", style = "margin:20px auto 0 auto;" }))
+    {
+        @Html.ValidationSummary(true)
+        <input type="text" id="MeetingDate" name="MeetingDate" style="display:none" value="@date" />
+        <div class="form-group">
+            @Html.Label("subject", "Subject:", new { @class = "col-sm-3 control-label" })
+            <div class="col-sm-7">
+                @Html.TextBoxFor(model => model.Name, new { @class = "form-control", placeholder = "Subject" })
+            `   @Html.ValidationMessageFor(model => model.Name, null, new { @class = "errorValidation" })
+             </div>
+        </div>
+        <div class="form-group">
+            @Html.Label("description", "Description:", new { @class = "col-sm-3 control-label" })
+            <div class="col-sm-7">
+                @Html.TextAreaFor(model => model.Description, new { @class = "form-control", placeholder = "Description" })
+                @Html.ValidationMessageFor(model => model.Description, null, new { @class = "errorValidation" })
+            </div>
+        </div>
+        <div>
+            @Html.Label("manager", "Manager:", new { @class = "col-sm-3 control-label" })
+            <div class="col-sm-7">
+                @Html.DropDownListFor(model => model.AssignedUserList, managerList, "Manager List", new { @class = "form-control", @selected = "selected" })
+                @Html.ValidationMessageFor(model => model.AssignedUserList, null, new { @class = "errorValidation" })
+            </div>
+        </div>
+        <br />
+        <div class="form-group" style="margin-left: 122px;">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-default">Submit</button>
+            </div>
+        </div>
+    }
+ @*</div>*@

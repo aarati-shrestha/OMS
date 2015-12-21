@@ -1,0 +1,39 @@
+﻿@using OfficeManagement.Models
+@{
+    ViewBag.Title = "User List";
+    int roleId = (int)Session["RoleId"];
+    //string imageurl="~/images/UserImage/aarati.jpg";
+}
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th style="display:none;">User ID</th>
+                <th><input id="chkAction" type="checkbox" onclick="CheckAll()" /></th>
+                <th>Full Name</th>
+                <th>Photo</th>
+                <th>Username</th>
+                <th>Gender</th>
+                <th>Active since</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="userList">
+            @foreach (var data in Model)
+            {
+                <tr>
+                    <td style="display:none;">@data.UserId</td>
+                    <td><input type="checkbox" onclick="GetCheckedItemsUserId()" /></td>
+                    <td>@data.FirstName  @data.LastName</td>
+                    <td><img src="@Url.Content(data.Photo)" width="100" height="100" /></td>
+                    <td>@data.Username</td>
+                    <td>@data.Gender</td>
+                    <td>@data.CreatedDate</td>
+                    <td><a href="~/User/Detail/@data.UserId">View>></a></td>
+                </tr>
+            }
+
+
+        </tbody>
+    </table>
+

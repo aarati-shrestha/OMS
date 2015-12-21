@@ -1,0 +1,87 @@
+﻿@model OfficeManagement.Models.UserModel
+@{
+    ViewBag.Title = "CreateUser";
+    List<SelectListItem> roleList = ViewBag.RoleList;
+    int roleId = (int)Session["RoleId"];
+}
+<link href="~/Content/assets/common.css" rel="stylesheet" />
+    @using (Html.BeginForm("CreateUser", "User", FormMethod.Post, new { @class = "form-horizontal", style = "margin:20px auto 0 auto;", enctype = "multipart/form-data" }))
+    {
+        if (roleId == 3)
+        {
+            @Html.ValidationSummary(true);
+            <div class="form-group">
+                @Html.Label("firstName", "First Name:", new { @class = "col-sm-3 control-label" })
+                <div class="col-sm-7">
+                    @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.FirstName, null, new { @class = "errorValidation" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("lastName", "Last Name:", new { @class = "col-sm-3 control-label" })
+                <div class="col-sm-7">
+                    @Html.TextBoxFor(model => model.LastName, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.LastName, null, new { @class = "errorValidation" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("gender", "Gender:", new { @class = "col-sm-3 control-label" })
+                <div class="col-sm-7">
+                    @Html.RadioButtonFor(model => model.Gender, "Female")
+                    @Html.LabelFor(model => model.Gender, "Female")
+                    @Html.RadioButtonFor(model => model.Gender, "Male")
+                    @Html.LabelFor(model => model.Gender, "Male")
+                    @Html.ValidationMessageFor(model => model.Gender, null, new { @class = "errorValidation" })
+                </div>
+            </div>
+
+    <div class="form-group">
+        @Html.Label("photo", "Photo:", new { @class = "col-sm-3 control-label" })
+        <div class="col-sm-7">
+            @*@Html.TextBoxFor(model => model.Photo, new {  type = "file" })*@
+            @Html.TextBoxFor(model => model.file, new { type = "file" })
+            @Html.ValidationMessageFor(model => model.LastName, null, new { @class = "errorValidation" })
+        </div>
+    </div>
+
+
+            <div class="form-group">
+                @Html.Label("dob", "Date of Birth:", new { @class = "col-sm-3 control-label" })
+                <div class="col-sm-7">
+                    @Html.TextBoxFor(model => model.DOB, new { @class = "form-control", type = "date" })
+                    @Html.ValidationMessageFor(model => model.DOB, null, new { @class = "errorValidation" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("username", "Username:", new { @class = "col-sm-3 control-label" })
+                <div class="col-sm-7">
+                    @Html.TextBoxFor(model => model.Username, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.Label("Password", "Password:", new { @class = "col-sm-3 control-label" })
+                <div class="col-sm-7">
+                    @Html.PasswordFor(model => model.Password, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.Label("position", "Position:", new { @class = "col-sm-3 control-label" })
+                <div class="col-sm-7">
+                    @Html.DropDownListFor(model => model.RoleId, roleList,"select", new { @class = "form-control", @selected = "selected" })
+                    @Html.ValidationMessageFor(model => model.RoleId, null, new { @class = "errorValidation" })
+                 </div>
+            </div>
+
+            <div class="form-group" style="margin-left: 117px;">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </div>
+            </div>
+        }
+        else
+        {
+            <h1 style="color:red;">Access Denied</h1>
+        }
+    }
+

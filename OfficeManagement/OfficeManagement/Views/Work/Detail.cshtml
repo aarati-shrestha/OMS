@@ -1,0 +1,213 @@
+﻿@using OfficeManagement.Models;
+@model WorkAndWorkUserStatusModel
+
+<link href="~/Content/assets/commentbox.css" rel="stylesheet" />
+@{
+    ViewBag.Title = "Detail";
+    List<SelectListItem> priorityList = ViewBag.PriorityList;
+    List<SelectListItem> workStatusList = ViewBag.WorkStatusList;
+    List<SelectListItem> userList = ViewBag.UserList;
+    WorkUserStatusModel workStatus = new WorkUserStatusModel();
+    int userId = (int)Session["UserId"];
+    int workId = ViewBag.WorkId;
+    string userName = Session["Name"].ToString();
+}
+
+<div class="panel panel-default" style="margin:0 50px 0 50px;">
+    <div class="panel-body">
+        <h2 class=" modal-title" id="myModalLabel">Details</h2>
+        <hr />
+
+        @using (Html.BeginForm("Detail", "Work", FormMethod.Post, new { @class = "form-horizontal", id = "workDetail" }))
+        {
+            <div>
+                @Html.HiddenFor(model => model.Work.WorkId)
+                @Html.HiddenFor(model => model.Work.CreatedUserId)
+            </div>
+            if (Model.Work.CreatedUserId == userId)
+            {
+                <div class="form-group">
+                    @Html.Label("Title:", new { @class = "col-sm-3 control-label" })
+                    <div class="col-sm-7">
+                        @Html.TextBoxFor(model => model.Work.Title, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.Label("Description:", new { @class = "col-sm-3 control-label" })
+                    <div class="col-sm-7">
+                        @Html.TextAreaFor(model => model.Work.Description, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.Label("Deadline:", new { @class = "col-sm-3 control-label" })
+                    <div class="col-sm-7">
+                        @Html.TextBoxFor(model => model.Work.Deadline, new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.Label("Created Date:", new { @class = "col-sm-3 control-label" })
+                    <div class="col-sm-7">
+                        @Html.TextBoxFor(model => model.Work.CreatedDate, new { @class = "form-control", disabled = true })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.Label("Priority: ", new { @class = "col-sm-3 control-label" })
+                    <div class="col-sm-7">
+                        @Html.DropDownListFor(model => model.Work.PriorityId, priorityList, "Select Priority", new { @class = "form-control", @selected = "selected" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.Label("Work Status: ", new { @class = "col-sm-3 control-label" })
+                    <div class="col-sm-7">
+                        @Html.DropDownListFor(model => model.Work.WorkStatusId, workStatusList, "Select work status", new { @class = "form-control", @selected = "selected" })
+                    </div>
+                </div>
+                <div class="form-group" style="margin-left: 260px;">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <input type="button" onclick="UpdateWork()" class="btn btn-primary btn-lg" value="Save" />
+                        <input type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" value="Assign Task">
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="form-group">
+                    @Html.Label("Title:", new { @class = "col-sm-3 control-label" })
+                    <div class="col-sm-7">
+                        @Html.TextBoxFor(model => model.Work.Title, new { @class = "form-control", disabled = true })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.Label("Description:", new { @class = "col-sm-3 control-label" })
+                    <div class="col-sm-7">
+                        @Html.TextAreaFor(model => model.Work.Description, new { @class = "form-control", disabled = true })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.Label("Deadline:", new { @class = "col-sm-3 control-label" })
+                    <div class="col-sm-7">
+                        @Html.TextBoxFor(model => model.Work.Deadline, new { @class = "form-control", disabled = true })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.Label("Created Date:", new { @class = "col-sm-3 control-label" })
+                    <div class="col-sm-7">
+
+                        @Html.TextBoxFor(model => model.Work.CreatedDate, new { @class = "form-control", disabled = true })
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.Label("Priority: ", new { @class = "col-sm-3 control-label" })
+                    <div class="col-sm-7">
+                        @Html.DropDownListFor(model => model.Work.PriorityId, priorityList, "Select Priority", new { @class = "form-control", @selected = "selected", disabled = true })
+                    </div>
+                </div>
+                <div class="form-group" style="margin-left: 260px;">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <input type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal" value="Save" />
+                    </div>
+                </div>
+            }
+        }
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            </div>
+            <div class="modal-body">
+
+                @using (Html.BeginForm("Detail", "Work", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data", id = "WorkUserStatus" }))
+                {
+                    @Html.Hidden("WorkUserStatus.WorkId", workId)
+                    @Html.Hidden("WorkUserStatus.UserId", userId)
+                    <div class="form-group">
+                        @Html.Label("Work Status: ", new { @class = "col-sm-3 control-label" })
+                        <div class="col-sm-7">
+                            @Html.DropDownListFor(m => m.WorkUserStatus.WorkStatusId, workStatusList, new { @class = "form-control" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                            @Html.Label("Assigned To: ", new { @class = "col-sm-3 control-label" })
+                            <div class="col-sm-7">
+                                @Html.DropDownListFor(m => m.WorkUserStatus.AssignedUserId, userList, new { @class = "form-control" })
+                            </div>
+                        </div>
+                    <div class="form-group">
+                        @Html.Label("Remark: ", new { @class = "col-sm-3 control-label" })
+                        <div class="col-sm-7">
+                            @Html.TextAreaFor(m => m.WorkUserStatus.Remark, new { @class = "form-control" })
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" onclick="InsertWorkUserStatusAndUpdateWork()" data-dismiss="modal">Save</button>
+                    </div>
+
+
+                }
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="panel panel-default" style="margin:0 50px 0 50px;">
+    <div class="panel-body">
+        <h4>Works are Assigned to Following Employees</h4>
+        <hr />
+        <div class="panel panel-default" id="lastFormUserStatus" style="display:none">
+            <div class="panel-heading">Work has been assigned By <b>@userName</b></div>
+            <div class="panel-body">
+                <table>
+                    <tr>
+                        <td>Assigned To:</td>
+                        <td><b><label id="assignedUser"></label></b></td>
+                    </tr>
+                    <tr>
+                        <td>Remarks:</td>
+                        <td><b><label id="remark"></label></b></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        @foreach (var item in Model.WorkUserStatusList)
+        {
+            <div class="panel panel-default">
+                <div class="panel-heading">Work has been assigned By <b>@item.userName</b></div>
+                <div class="panel-body">
+                    <table>
+                        <tr>
+                            <td>Assigned To:</td>
+                            <td><b>@item.assignedUserName</b></td>
+                        </tr>
+
+                        <tr>
+                            <td>Remarks:</td>
+                            <td><b>@item.Remark</b></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<script src="~/Scripts/work.js"></script>
+
